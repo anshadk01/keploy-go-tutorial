@@ -1,50 +1,64 @@
-﻿"use client";
+'use client';
 
-import React from "react";
-import { Info, Lightbulb, AlertTriangle, Sparkles, CheckCircle2 } from "lucide-react";
+import React from 'react';
+import { Info, Lightbulb, AlertTriangle, Sparkles, CheckCircle2, Compass, HelpCircle } from 'lucide-react';
 
 interface CalloutProps {
-  type?: "info" | "tip" | "warning" | "aha" | "success";
+  type?: 'info' | 'tip' | 'warning' | 'aha' | 'success' | 'analogy' | 'why';
   title?: string;
   children: React.ReactNode;
 }
 
-export function Callout({ type = "info", title, children }: CalloutProps) {
+export function Callout({ type = 'info', title, children }: CalloutProps) {
   const styles = {
     info: {
-      container: "border-blue-500/30 bg-blue-50/70 dark:bg-blue-950/25 text-blue-950 dark:text-blue-100",
-      badge: "text-blue-700 dark:text-blue-300 font-semibold",
-      border: "border-l-4 border-l-blue-500",
+      container: 'border-blue-500/30 bg-blue-50/70 dark:bg-blue-950/25 text-blue-950 dark:text-blue-100',
+      badge: 'text-blue-700 dark:text-blue-300 font-semibold',
+      border: 'border-l-4 border-l-blue-500',
       icon: <Info className="w-5 h-5 text-blue-600 dark:text-blue-400 shrink-0" />,
-      defaultTitle: "Documentation Note",
+      defaultTitle: 'Documentation Note',
     },
     tip: {
-      container: "border-emerald-500/30 bg-emerald-50/70 dark:bg-emerald-950/25 text-emerald-950 dark:text-emerald-100",
-      badge: "text-emerald-700 dark:text-emerald-300 font-semibold",
-      border: "border-l-4 border-l-emerald-500",
+      container: 'border-emerald-500/30 bg-emerald-50/70 dark:bg-emerald-950/25 text-emerald-950 dark:text-emerald-100',
+      badge: 'text-emerald-700 dark:text-emerald-300 font-semibold',
+      border: 'border-l-4 border-l-emerald-500',
       icon: <Lightbulb className="w-5 h-5 text-emerald-600 dark:text-emerald-400 shrink-0" />,
-      defaultTitle: "DevRel Pro Tip",
+      defaultTitle: 'DevRel Pro Tip',
     },
     warning: {
-      container: "border-amber-500/30 bg-amber-50/70 dark:bg-amber-950/25 text-amber-950 dark:text-amber-100",
-      badge: "text-amber-700 dark:text-amber-300 font-semibold",
-      border: "border-l-4 border-l-amber-500",
+      container: 'border-amber-500/30 bg-amber-50/70 dark:bg-amber-950/25 text-amber-950 dark:text-amber-100',
+      badge: 'text-amber-700 dark:text-amber-300 font-semibold',
+      border: 'border-l-4 border-l-amber-500',
       icon: <AlertTriangle className="w-5 h-5 text-amber-600 dark:text-amber-400 shrink-0" />,
-      defaultTitle: "Important Requirement",
+      defaultTitle: 'Important Requirement',
     },
     aha: {
-      container: "border-orange-500/40 bg-gradient-to-br from-orange-500/10 via-amber-500/5 to-transparent text-slate-900 dark:text-orange-50 shadow-sm ring-1 ring-orange-500/20",
-      badge: "text-orange-600 dark:text-orange-300 font-bold",
-      border: "border-l-4 border-l-orange-500",
+      container: 'border-orange-500/40 bg-gradient-to-br from-orange-500/10 via-amber-500/5 to-transparent text-slate-900 dark:text-orange-50 shadow-sm ring-1 ring-orange-500/20',
+      badge: 'text-orange-600 dark:text-orange-300 font-bold',
+      border: 'border-l-4 border-l-orange-500',
       icon: <Sparkles className="w-5 h-5 text-orange-500 dark:text-orange-400 shrink-0 animate-pulse" />,
       defaultTitle: 'The "A-Ha!" Moment',
     },
+    analogy: {
+      container: 'border-purple-500/35 bg-gradient-to-br from-purple-500/10 via-indigo-500/5 to-transparent text-slate-900 dark:text-purple-100 shadow-sm ring-1 ring-purple-500/20',
+      badge: 'text-purple-700 dark:text-purple-300 font-bold',
+      border: 'border-l-4 border-l-purple-500',
+      icon: <Compass className="w-5 h-5 text-purple-600 dark:text-purple-400 shrink-0" />,
+      defaultTitle: 'In Plain English (The Analogy)',
+    },
+    why: {
+      container: 'border-teal-500/35 bg-teal-50/70 dark:bg-teal-950/25 text-teal-950 dark:text-teal-100',
+      badge: 'text-teal-700 dark:text-teal-300 font-bold',
+      border: 'border-l-4 border-l-teal-500',
+      icon: <HelpCircle className="w-5 h-5 text-teal-600 dark:text-teal-400 shrink-0" />,
+      defaultTitle: 'Why This Step Matters',
+    },
     success: {
-      container: "border-teal-500/30 bg-teal-50/70 dark:bg-teal-950/25 text-teal-950 dark:text-teal-100",
-      badge: "text-teal-700 dark:text-teal-300 font-semibold",
-      border: "border-l-4 border-l-teal-500",
+      container: 'border-teal-500/30 bg-teal-50/70 dark:bg-teal-950/25 text-teal-950 dark:text-teal-100',
+      badge: 'text-teal-700 dark:text-teal-300 font-semibold',
+      border: 'border-l-4 border-l-teal-500',
       icon: <CheckCircle2 className="w-5 h-5 text-teal-600 dark:text-teal-400 shrink-0" />,
-      defaultTitle: "Verification Success",
+      defaultTitle: 'Verification Success',
     },
   }[type];
 

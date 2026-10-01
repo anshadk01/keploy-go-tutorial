@@ -1,16 +1,16 @@
-﻿"use client";
+'use client';
 
-import React, { useState } from "react";
-import { FolderOpen, FileText, Check, Copy } from "lucide-react";
+import React, { useState } from 'react';
+import { FolderOpen, FileText, Check, Copy } from 'lucide-react';
 
 export function FileTree() {
-  const [selectedFile, setSelectedFile] = useState<"test1" | "mocks" | "config">("test1");
+  const [selectedFile, setSelectedFile] = useState<'test1' | 'mocks' | 'config'>('test1');
   const [copied, setCopied] = useState(false);
 
   const fileContents = {
     test1: {
-      path: "keploy/test-set-0/tests/test-1.yaml",
-      desc: "Stores the captured HTTP request payload, headers, and expected response body & status code.",
+      path: 'keploy/test-set-0/tests/test-1.yaml',
+      desc: 'Real Keploy v2 HTTP test artifact. Contains recorded request payload, expected response, status 200, and automatic noise filters for body.ts and header.Date.',
       content: `version: api.keploy.io/v1beta1
 kind: Http
 name: test-1
@@ -20,63 +20,87 @@ spec:
     method: POST
     proto_major: 1
     proto_minor: 1
-    url: /url
+    url: http://localhost:8080/url
     header:
+      Accept: '*/*'
       Content-Type: application/json
-    body: '{"url":"https://keploy.io"}'
-    timestamp: 2026-10-01T12:00:00Z
+      Host: localhost:8080
+      User-Agent: curl/7.88.1
+    body: |-
+      {
+        "url": "https://google.com"
+      }
+    timestamp: 2024-06-21T09:54:45.17856559+05:30
   resp:
-    status_code: 201
+    status_code: 200
     header:
       Content-Type: application/json; charset=utf-8
-    body: '{"short_url":"http://localhost:8080/xyz123"}'
-    status_message: Created
+      Date: Fri, 21 Jun 2024 04:24:45 GMT
+    body: '{"ts":1718943885198315028,"url":"http://localhost:8080/Lhr4BWAi"}'
+    status_message: OK
+    proto_major: 0
+    proto_minor: 0
+    timestamp: 2024-06-21T09:54:47.258858256+05:30
   objects: []
   assertions:
     noise:
-      - header.Date
-  created: 1727784000`,
+      body.ts: []
+      header.Date: []
+  created: 1718943887
+curl: |-
+  curl --request POST \
+    --url http://localhost:8080/url \
+    --header 'Content-Type: application/json' \
+    --data '{"url": "https://google.com"}'`,
     },
     mocks: {
-      path: "keploy/test-set-0/mocks.yaml",
-      desc: "Stores the exact MongoDB wire-protocol commands and documents returned by the database.",
+      path: 'keploy/test-set-0/mocks.yaml',
+      desc: 'Real Keploy v2 MongoDB egress mock artifact. Captures binary wire protocol OpMsg (opcode 2013) interactions between mongo-go-driver and MongoDB server.',
       content: `version: api.keploy.io/v1beta1
 kind: Mongo
-name: mock-0
+name: mock-1
 spec:
   metadata:
-    type: config
+    operation: '{ OpMsg flags: 0, sections: [{ SectionSingle msg: {"update":"url-shortener","ordered":true,"writeConcern":{"w":"majority"},"$db":"keploy"} }, { SectionSingle identifier: updates , msgs: [ {"q":{"_id":"Lhr4BWAi"},"u":{"$set":{"_id":"Lhr4BWAi","url":"https://google.com"}},"upsert":true} ] }] }'
   requests:
     - header:
-        length: 85
-        request_id: 12
-        response_to: 0
-        op_code: 2013
+        length: 301
+        requestId: 5
+        responseTo: 0
+        Opcode: 2013
       message:
-        insert: urls
-        documents:
-          - original_url: https://keploy.io
-            short_url: xyz123
+        flagBits: 0
+        sections:
+          - '{ SectionSingle msg: {"update":"url-shortener","ordered":true,"$db":"keploy"} }'
+          - '{ SectionSingle identifier: updates , msgs: [ {"q":{"_id":"Lhr4BWAi"},"u":{"$set":{"url":"https://google.com"}},"upsert":true} ] }'
+        checksum: 0
+      read_delay: 37290
   responses:
     - header:
-        length: 45
-        request_id: 204
-        response_to: 12
-        op_code: 2013
+        length: 112
+        requestId: 10
+        responseTo: 5
+        Opcode: 2013
       message:
-        n: 1
-        ok: 1`,
+        flagBits: 0
+        documents:
+          - '{"n":{"$numberInt":"1"},"nModified":{"$numberInt":"0"},"upserted":[{"index":{"$numberInt":"0"},"_id":"Lhr4BWAi"}],"ok":{"$numberDouble":"1.0"}}'
+      read_delay: 15402
+  created: 1718943885`,
     },
     config: {
-      path: "keploy.yml",
-      desc: "Top-level configuration for Keploy test timeouts, ports, and noise patterns.",
+      path: 'keploy.yml',
+      desc: 'Keploy configuration file configuring global test delays, port filters, and container networks.',
       content: `test:
   path: "./keploy"
-  appCmd: "go run main.go"
-  delay: 5
+  appCmd: "go run main.go handler.go"
+  delay: 10
   port: 8080
   ignoreOrdering: true
-  passThrough: []`,
+  passThrough: []
+record:
+  path: "./keploy"
+  filters: []`,
     },
   };
 
@@ -121,11 +145,11 @@ spec:
                 <div className="pl-4">
                   <button
                     type="button"
-                    onClick={() => setSelectedFile("test1")}
+                    onClick={() => setSelectedFile('test1')}
                     className={`flex items-center gap-1.5 w-full text-left px-2 py-1.5 rounded-lg transition-all ${
-                      selectedFile === "test1"
-                        ? "bg-orange-500/15 text-orange-600 dark:text-orange-400 font-semibold ring-1 ring-orange-500/30"
-                        : "hover:bg-slate-200/60 dark:hover:bg-slate-800/60 text-slate-600 dark:text-slate-400"
+                      selectedFile === 'test1'
+                        ? 'bg-orange-500/15 text-orange-600 dark:text-orange-400 font-semibold ring-1 ring-orange-500/30'
+                        : 'hover:bg-slate-200/60 dark:hover:bg-slate-800/60 text-slate-600 dark:text-slate-400'
                     }`}
                   >
                     <FileText className="w-3.5 h-3.5 text-blue-500" />
@@ -135,11 +159,11 @@ spec:
 
                 <button
                   type="button"
-                  onClick={() => setSelectedFile("mocks")}
+                  onClick={() => setSelectedFile('mocks')}
                   className={`flex items-center gap-1.5 w-full text-left px-2 py-1.5 rounded-lg transition-all ${
-                    selectedFile === "mocks"
-                      ? "bg-orange-500/15 text-orange-600 dark:text-orange-400 font-semibold ring-1 ring-orange-500/30"
-                      : "hover:bg-slate-200/60 dark:hover:bg-slate-800/60 text-slate-600 dark:text-slate-400"
+                    selectedFile === 'mocks'
+                      ? 'bg-orange-500/15 text-orange-600 dark:text-orange-400 font-semibold ring-1 ring-orange-500/30'
+                      : 'hover:bg-slate-200/60 dark:hover:bg-slate-800/60 text-slate-600 dark:text-slate-400'
                   }`}
                 >
                   <FileText className="w-3.5 h-3.5 text-purple-500" />
@@ -151,11 +175,11 @@ spec:
             <div className="pt-2">
               <button
                 type="button"
-                onClick={() => setSelectedFile("config")}
+                onClick={() => setSelectedFile('config')}
                 className={`flex items-center gap-1.5 w-full text-left px-2 py-1.5 rounded-lg transition-all ${
-                  selectedFile === "config"
-                    ? "bg-orange-500/15 text-orange-600 dark:text-orange-400 font-semibold ring-1 ring-orange-500/30"
-                    : "hover:bg-slate-200/60 dark:hover:bg-slate-800/60 text-slate-600 dark:text-slate-400"
+                  selectedFile === 'config'
+                    ? 'bg-orange-500/15 text-orange-600 dark:text-orange-400 font-semibold ring-1 ring-orange-500/30'
+                    : 'hover:bg-slate-200/60 dark:hover:bg-slate-800/60 text-slate-600 dark:text-slate-400'
                 }`}
               >
                 <FileText className="w-3.5 h-3.5 text-emerald-500" />

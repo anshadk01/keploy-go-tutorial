@@ -6,7 +6,7 @@ import { Sidebar } from '@/components/layout/Sidebar';
 import { TableOfContents } from '@/components/layout/TableOfContents';
 import TutorialContent from '@/content/tutorial.mdx';
 import { GithubIcon } from '@/components/icons/GithubIcon';
-import { Heart, ExternalLink, ArrowRight, BookOpen } from 'lucide-react';
+import { ArrowRight, BookOpen } from 'lucide-react';
 
 export default function Page() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -19,11 +19,13 @@ export default function Page() {
       'prerequisites',
       'sample-app',
       'record-mode',
-      'inspecting-artifacts',
+      'inspect-artifacts',
+      'stop-mongo',
       'replay-tests',
+      'test-regression',
       'aha-moments',
+      'troubleshooting',
       'cicd-integration',
-      'cheat-sheet',
     ];
 
     const handleScroll = () => {
@@ -77,7 +79,7 @@ export default function Page() {
                     Ready to supercharge your Go tests?
                   </h3>
                   <p className="text-sm text-slate-600 dark:text-slate-400 mt-1 max-w-md">
-                    Check out the official documentation or test Keploy on your own Go microservices today.
+                    Explore the official Keploy docs or run Keploy on your microservices with zero test code.
                   </p>
                 </div>
                 <div className="flex items-center gap-3 shrink-0">

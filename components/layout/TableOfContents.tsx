@@ -1,37 +1,38 @@
-﻿"use client";
+'use client';
 
-import React, { useEffect, useState } from "react";
-import { AlignLeft, ArrowUp } from "lucide-react";
+import React from 'react';
+import { AlignLeft, ArrowUp } from 'lucide-react';
 
 interface TocItem {
   id: string;
   title: string;
-  level: number;
 }
 
 const tocItems: TocItem[] = [
-  { id: "overview", title: "1. Overview & Testing Dilemma", level: 2 },
-  { id: "mental-model", title: "2. The Mental Model & Architecture", level: 2 },
-  { id: "prerequisites", title: "3. Prerequisites & Installation", level: 2 },
-  { id: "sample-app", title: "4. The Go Gin + Mongo App", level: 2 },
-  { id: "record-mode", title: "5. Step 1: Recording Test Cases", level: 2 },
-  { id: "inspecting-artifacts", title: "6. Step 2: Under the Hood (YAML)", level: 2 },
-  { id: "replay-tests", title: "7. Step 3: Replaying Without Mongo", level: 2 },
-  { id: "aha-moments", title: '8. "A-Ha!" Moments & Gotchas', level: 2 },
-  { id: "cicd-integration", title: "9. CI/CD Pipeline Integration", level: 2 },
-  { id: "cheat-sheet", title: "10. DevRel Cheat Sheet", level: 2 },
+  { id: 'overview', title: '1. The Go Testing Dilemma' },
+  { id: 'mental-model', title: '2. Architecture & eBPF' },
+  { id: 'prerequisites', title: '3. Prerequisites & Validation' },
+  { id: 'sample-app', title: '4. Setup Gin + MongoDB App' },
+  { id: 'record-mode', title: '5. Record Mode & Traffic' },
+  { id: 'inspect-artifacts', title: '6. Inspect Real YAML & Mocks' },
+  { id: 'stop-mongo', title: '7. Stop MongoDB Container' },
+  { id: 'replay-tests', title: '8. Replay Tests (No DB!)' },
+  { id: 'test-regression', title: '9. Catch Real Regressions' },
+  { id: 'aha-moments', title: '10. "A-Ha!" Moments' },
+  { id: 'troubleshooting', title: '11. Troubleshooting Guide' },
+  { id: 'cicd-integration', title: '12. CI/CD & GitHub Actions' },
 ];
 
 export function TableOfContents({ activeId }: { activeId: string }) {
   const scrollTo = (id: string) => {
     const el = document.getElementById(id);
     if (el) {
-      el.scrollIntoView({ behavior: "smooth" });
+      el.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
   const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
@@ -43,7 +44,7 @@ export function TableOfContents({ activeId }: { activeId: string }) {
           <span>On This Page</span>
         </div>
 
-        <nav className="space-y-1">
+        <nav className="space-y-1 max-h-[calc(100vh-180px)] overflow-y-auto pr-1">
           {tocItems.map((item) => {
             const isActive = activeId === item.id;
             return (
@@ -53,8 +54,8 @@ export function TableOfContents({ activeId }: { activeId: string }) {
                 onClick={() => scrollTo(item.id)}
                 className={`block w-full text-left text-xs py-1.5 px-2 rounded-lg transition-all ${
                   isActive
-                    ? "font-semibold text-orange-600 dark:text-orange-400 bg-orange-500/10 dark:bg-orange-400/10"
-                    : "text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200"
+                    ? 'font-semibold text-orange-600 dark:text-orange-400 bg-orange-500/10 dark:bg-orange-400/10'
+                    : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
                 }`}
               >
                 {item.title}

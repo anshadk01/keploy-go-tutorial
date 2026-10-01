@@ -15,9 +15,10 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Keploy Go Quickstart Guide | Zero-Code Testing for Go (Gin + MongoDB)",
+  metadataBase: new URL("https://keploy-go-tutorial.vercel.app"),
+  title: "Keploy Go Quickstart: Zero-Code Testing for Gin & MongoDB",
   description:
-    "A beginner-friendly DevRel tutorial on running Keploy with Go (Gin + MongoDB) to automatically record HTTP tests and mock database calls with zero code changes.",
+    "A beginner-friendly DevRel guide to capturing real-world API traffic, generating deterministic test suites, and mocking MongoDB with zero code changes using Keploy.",
   keywords: [
     "Keploy",
     "Go",
@@ -25,18 +26,54 @@ export const metadata: Metadata = {
     "Gin",
     "MongoDB",
     "eBPF",
-    "Testing",
-    "Mocking",
+    "Zero-Code Testing",
+    "API Testing",
     "Integration Testing",
+    "Mocking",
     "DevRel",
   ],
-  authors: [{ name: "Keploy DevRel Team" }],
+  authors: [{ name: "Keploy DevRel Team", url: "https://keploy.io" }],
+  creator: "Keploy DevRel",
+  publisher: "Keploy Inc.",
+  openGraph: {
+    type: "article",
+    locale: "en_US",
+    url: "https://keploy-go-tutorial.vercel.app",
+    siteName: "Keploy Go Quickstart Guide",
+    title: "Keploy Go Quickstart: Zero-Code Testing for Gin & MongoDB",
+    description:
+      "Learn how Keploy captures HTTP API calls and MongoDB wire packets at the transport layer to replay regression tests without a database.",
+    images: [
+      {
+        url: "https://keploy.io/assets/images/keploy-banner.png",
+        width: 1200,
+        height: 630,
+        alt: "Keploy Zero-Code Testing for Go",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Keploy Go Quickstart: Zero-Code Testing for Gin & MongoDB",
+    description:
+      "Learn how to capture real-world traffic and replay hermetic Go regression tests without writing mocks.",
+    creator: "@Keploy_io",
+    images: ["https://keploy.io/assets/images/keploy-banner.png"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#020617" },
+  ],
 };
 
 export default function RootLayout({
@@ -47,7 +84,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning className="h-full">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} font-sans min-h-full flex flex-col bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100 transition-colors antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} font-sans min-h-full flex flex-col bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100 transition-colors antialiased selection:bg-orange-500/20 selection:text-orange-900 dark:selection:text-orange-100`}
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <ReadingProgressBar />
