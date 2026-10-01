@@ -3,7 +3,6 @@
 import React, { useState, useEffect } from 'react';
 import { Header } from '@/components/layout/Header';
 import { Sidebar } from '@/components/layout/Sidebar';
-import { TableOfContents } from '@/components/layout/TableOfContents';
 import TutorialContent from '@/content/tutorial.mdx';
 import { GithubIcon } from '@/components/icons/GithubIcon';
 import { ArrowRight, BookOpen } from 'lucide-react';
@@ -63,9 +62,9 @@ export default function Page() {
           activeId={activeId}
         />
 
-        {/* Center Content Column */}
-        <main className="flex-1 min-w-0 lg:pl-72 xl:pr-10 py-4 sm:py-6 pb-20">
-          <div className="max-w-3xl mx-auto">
+        {/* Center Content Column (Expansive, Spacious, Non-cramped) */}
+        <main className="flex-1 min-w-0 lg:pl-76 py-4 sm:py-6 pb-24">
+          <div className="max-w-4xl mx-auto lg:px-4">
             {/* MDX Document Render */}
             <article className="prose prose-slate dark:prose-invert max-w-none">
               <TutorialContent />
@@ -73,7 +72,7 @@ export default function Page() {
 
             {/* End of article Callout / Footer Banner */}
             <div className="mt-16 pt-8 border-t border-slate-200 dark:border-slate-800">
-              <div className="rounded-3xl p-6 sm:p-8 bg-gradient-to-tr from-orange-500/10 via-amber-500/5 to-transparent border border-orange-500/20 text-center sm:text-left flex flex-col sm:flex-row items-center justify-between gap-6">
+              <div className="rounded-3xl p-6 sm:p-8 bg-gradient-to-tr from-orange-500/10 via-amber-500/5 to-transparent border border-orange-500/20 text-center sm:text-left flex flex-col sm:flex-row items-center justify-between gap-6 shadow-xs">
                 <div>
                   <h3 className="text-xl font-bold text-slate-900 dark:text-white">
                     Ready to supercharge your Go tests?
@@ -128,8 +127,6 @@ export default function Page() {
           </div>
         </main>
 
-        {/* Right Sticky Table of Contents (Desktop Only) */}
-        <TableOfContents activeId={activeId} />
       </div>
     </div>
   );
